@@ -4,6 +4,21 @@
 	"parameters": {
 		"factoryName": {
 			"value": "manda-diff"
+		},
+		"AdvWorksDb_password": {
+			"value": ""
+		},
+		"BlobStorageProducts_connectionString": {
+			"value": ""
+		},
+		"AdvWorksDb_properties_typeProperties_server": {
+			"value": "adf-server-adf.database.windows.net"
+		},
+		"AdvWorksDb_properties_typeProperties_database": {
+			"value": "adf-db"
+		},
+		"AdvWorksDb_properties_typeProperties_userName": {
+			"value": "adf"
 		}
 	}
 }
