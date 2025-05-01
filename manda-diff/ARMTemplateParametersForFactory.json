@@ -11,6 +11,9 @@
 		"BlobStorageProducts_connectionString": {
 			"value": ""
 		},
+		"ADLSGen2_accountKey": {
+			"value": ""
+		},
 		"AdvWorksDb_properties_typeProperties_server": {
 			"value": "manda-diff.database.windows.net"
 		},
@@ -19,6 +22,9 @@
 		},
 		"AdvWorksDb_properties_typeProperties_userName": {
 			"value": "manda-admin"
+		},
+		"ADLSGen2_properties_typeProperties_url": {
+			"value": "https://adf8414.dfs.core.windows.net/"
 		}
 	}
 }
