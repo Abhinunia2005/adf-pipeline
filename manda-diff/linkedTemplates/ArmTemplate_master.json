@@ -17,15 +17,15 @@
 		},
 		"AdvWorksDb_properties_typeProperties_server": {
 			"type": "string",
-			"defaultValue": "adf-server-adf.database.windows.net"
+			"defaultValue": "manda-diff.database.windows.net"
 		},
 		"AdvWorksDb_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "adf-db"
+			"defaultValue": "manda-dif"
 		},
 		"AdvWorksDb_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "adf"
+			"defaultValue": "manda-admin"
 		},
 		"containerUri": {
 			"type": "string",

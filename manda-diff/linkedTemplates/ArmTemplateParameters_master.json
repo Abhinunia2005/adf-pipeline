@@ -12,13 +12,13 @@
 			"value": ""
 		},
 		"AdvWorksDb_properties_typeProperties_server": {
-			"value": "adf-server-adf.database.windows.net"
+			"value": "manda-diff.database.windows.net"
 		},
 		"AdvWorksDb_properties_typeProperties_database": {
-			"value": "adf-db"
+			"value": "manda-dif"
 		},
 		"AdvWorksDb_properties_typeProperties_userName": {
-			"value": "adf"
+			"value": "manda-admin"
 		},
 		"containerUri": {
 			"value": ""
