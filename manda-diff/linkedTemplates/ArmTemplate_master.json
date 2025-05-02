@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "manda-diff"
 		},
+		"ADLSGen2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLSGen2'"
+		},
 		"AdvWorksDb_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AdvWorksDb'"
@@ -15,9 +19,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'BlobStorageProducts'"
 		},
-		"ADLSGen2_accountKey": {
+		"TaxiTripDB_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'ADLSGen2'"
+			"metadata": "Secure string for 'password' of 'TaxiTripDB'"
+		},
+		"ADLSTripData_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLSTripData'"
+		},
+		"sourcelink_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'sourcelink'"
+		},
+		"ADLSGen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adf8414.dfs.core.windows.net/"
 		},
 		"AdvWorksDb_properties_typeProperties_server": {
 			"type": "string",
@@ -31,9 +47,33 @@
 			"type": "string",
 			"defaultValue": "manda-admin"
 		},
-		"ADLSGen2_properties_typeProperties_url": {
+		"TaxiTripDB_properties_typeProperties_server": {
 			"type": "string",
-			"defaultValue": "https://adf8414.dfs.core.windows.net/"
+			"defaultValue": "manda-diff.database.windows.net"
+		},
+		"TaxiTripDB_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "tripdataDB"
+		},
+		"TaxiTripDB_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "manda-admin"
+		},
+		"ADLSTripData_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlstripdata8414.dfs.core.windows.net/"
+		},
+		"sourcelink_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "manda-diff.database.windows.net"
+		},
+		"sourcelink_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "tripdataDB"
+		},
+		"sourcelink_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "manda-admin"
 		},
 		"containerUri": {
 			"type": "string",
@@ -62,14 +102,26 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"ADLSGen2_accountKey": {
+						"value": "[parameters('ADLSGen2_accountKey')]"
+					},
 					"AdvWorksDb_password": {
 						"value": "[parameters('AdvWorksDb_password')]"
 					},
 					"BlobStorageProducts_connectionString": {
 						"value": "[parameters('BlobStorageProducts_connectionString')]"
 					},
-					"ADLSGen2_accountKey": {
-						"value": "[parameters('ADLSGen2_accountKey')]"
+					"TaxiTripDB_password": {
+						"value": "[parameters('TaxiTripDB_password')]"
+					},
+					"ADLSTripData_accountKey": {
+						"value": "[parameters('ADLSTripData_accountKey')]"
+					},
+					"sourcelink_password": {
+						"value": "[parameters('sourcelink_password')]"
+					},
+					"ADLSGen2_properties_typeProperties_url": {
+						"value": "[parameters('ADLSGen2_properties_typeProperties_url')]"
 					},
 					"AdvWorksDb_properties_typeProperties_server": {
 						"value": "[parameters('AdvWorksDb_properties_typeProperties_server')]"
@@ -80,8 +132,26 @@
 					"AdvWorksDb_properties_typeProperties_userName": {
 						"value": "[parameters('AdvWorksDb_properties_typeProperties_userName')]"
 					},
-					"ADLSGen2_properties_typeProperties_url": {
-						"value": "[parameters('ADLSGen2_properties_typeProperties_url')]"
+					"TaxiTripDB_properties_typeProperties_server": {
+						"value": "[parameters('TaxiTripDB_properties_typeProperties_server')]"
+					},
+					"TaxiTripDB_properties_typeProperties_database": {
+						"value": "[parameters('TaxiTripDB_properties_typeProperties_database')]"
+					},
+					"TaxiTripDB_properties_typeProperties_userName": {
+						"value": "[parameters('TaxiTripDB_properties_typeProperties_userName')]"
+					},
+					"ADLSTripData_properties_typeProperties_url": {
+						"value": "[parameters('ADLSTripData_properties_typeProperties_url')]"
+					},
+					"sourcelink_properties_typeProperties_server": {
+						"value": "[parameters('sourcelink_properties_typeProperties_server')]"
+					},
+					"sourcelink_properties_typeProperties_database": {
+						"value": "[parameters('sourcelink_properties_typeProperties_database')]"
+					},
+					"sourcelink_properties_typeProperties_userName": {
+						"value": "[parameters('sourcelink_properties_typeProperties_userName')]"
 					}
 				}
 			},

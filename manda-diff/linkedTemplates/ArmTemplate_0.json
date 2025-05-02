@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "manda-diff"
 		},
+		"ADLSGen2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLSGen2'"
+		},
 		"AdvWorksDb_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AdvWorksDb'"
@@ -15,9 +19,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'BlobStorageProducts'"
 		},
-		"ADLSGen2_accountKey": {
+		"TaxiTripDB_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'ADLSGen2'"
+			"metadata": "Secure string for 'password' of 'TaxiTripDB'"
+		},
+		"ADLSTripData_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLSTripData'"
+		},
+		"sourcelink_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'sourcelink'"
+		},
+		"ADLSGen2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adf8414.dfs.core.windows.net/"
 		},
 		"AdvWorksDb_properties_typeProperties_server": {
 			"type": "string",
@@ -31,9 +47,33 @@
 			"type": "string",
 			"defaultValue": "manda-admin"
 		},
-		"ADLSGen2_properties_typeProperties_url": {
+		"TaxiTripDB_properties_typeProperties_server": {
 			"type": "string",
-			"defaultValue": "https://adf8414.dfs.core.windows.net/"
+			"defaultValue": "manda-diff.database.windows.net"
+		},
+		"TaxiTripDB_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "tripdataDB"
+		},
+		"TaxiTripDB_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "manda-admin"
+		},
+		"ADLSTripData_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlstripdata8414.dfs.core.windows.net/"
+		},
+		"sourcelink_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "manda-diff.database.windows.net"
+		},
+		"sourcelink_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "tripdataDB"
+		},
+		"sourcelink_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "manda-admin"
 		}
 	},
 	"variables": {
@@ -73,6 +113,23 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ADLSGen2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ADLSGen2_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ADLSGen2_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AdvWorksDb')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -108,21 +165,170 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ADLSGen2')]",
+			"name": "[concat(parameters('factoryName'), '/TaxiTripDB')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('TaxiTripDB_properties_typeProperties_server')]",
+					"database": "[parameters('TaxiTripDB_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('TaxiTripDB_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('TaxiTripDB_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLSTripData')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "[parameters('ADLSGen2_properties_typeProperties_url')]",
+					"url": "[parameters('ADLSTripData_properties_typeProperties_url')]",
 					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('ADLSGen2_accountKey')]"
+						"value": "[parameters('ADLSTripData_accountKey')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sourcelink')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('sourcelink_properties_typeProperties_server')]",
+					"database": "[parameters('sourcelink_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('sourcelink_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('sourcelink_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MoviesDB')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSGen2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "moviesDB.csv",
+						"fileSystem": "sample-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "movie",
+						"type": "String"
+					},
+					{
+						"name": "title",
+						"type": "String"
+					},
+					{
+						"name": "genres",
+						"type": "String"
+					},
+					{
+						"name": "year",
+						"type": "String"
+					},
+					{
+						"name": "Rating",
+						"type": "String"
+					},
+					{
+						"name": "Rotton Tomato",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSGen2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MoviesSink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSGen2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "output",
+						"fileSystem": "sample-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSGen2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ProductBlobJson')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "BlobStorageProducts",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Markup.json",
+						"container": "products"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/BlobStorageProducts')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ProductCsv')]",
@@ -259,36 +465,12 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ProductBlobJson')]",
+			"name": "[concat(parameters('factoryName'), '/TripDatacsv')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "BlobStorageProducts",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "Markup.json",
-						"container": "products"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/BlobStorageProducts')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/MoviesDB')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ADLSGen2",
+					"referenceName": "ADLSTripData",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -296,61 +478,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "moviesDB.csv",
-						"fileSystem": "sample-data"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "movie",
-						"type": "String"
-					},
-					{
-						"name": "title",
-						"type": "String"
-					},
-					{
-						"name": "genres",
-						"type": "String"
-					},
-					{
-						"name": "year",
-						"type": "String"
-					},
-					{
-						"name": "Rating",
-						"type": "String"
-					},
-					{
-						"name": "Rotton Tomato",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLSGen2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/MoviesSink')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ADLSGen2",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "output",
-						"fileSystem": "sample-data"
+						"fileSystem": "taxidata"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -360,91 +488,85 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLSGen2')]"
+				"[concat(variables('factoryId'), '/linkedServices/ADLSTripData')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dfProductsMarkup')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"type": "MappingDataFlow",
+				"linkedServiceName": {
+					"referenceName": "sourcelink",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "medallion",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hack_license",
+						"type": "nvarchar"
+					},
+					{
+						"name": "vendor_id",
+						"type": "nvarchar"
+					},
+					{
+						"name": "rate_code",
+						"type": "nvarchar"
+					},
+					{
+						"name": "store_and_fwd_flag",
+						"type": "nvarchar"
+					},
+					{
+						"name": "pickup_datetime",
+						"type": "nvarchar"
+					},
+					{
+						"name": "dropoff_datetime",
+						"type": "nvarchar"
+					},
+					{
+						"name": "passenger_count",
+						"type": "nvarchar"
+					},
+					{
+						"name": "trip_time_in_secs",
+						"type": "nvarchar"
+					},
+					{
+						"name": "trip_distance",
+						"type": "nvarchar"
+					},
+					{
+						"name": "pickup_longitude",
+						"type": "nvarchar"
+					},
+					{
+						"name": "pickup_latitude",
+						"type": "nvarchar"
+					},
+					{
+						"name": "dropoff_longitude",
+						"type": "nvarchar"
+					},
+					{
+						"name": "dropoff_latitude",
+						"type": "nvarchar"
+					}
+				],
 				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "ProductsTable",
-								"type": "DatasetReference"
-							},
-							"name": "ProductStream"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "ProductBlobJson",
-								"type": "DatasetReference"
-							},
-							"name": "SinkBlob"
-						}
-					],
-					"transformations": [
-						{
-							"name": "CalculatedMarkup"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          ProductID as integer,",
-						"          Name as string,",
-						"          ProductNumber as string,",
-						"          Color as string,",
-						"          StandardCost as decimal(19,4),",
-						"          ListPrice as decimal(19,4),",
-						"          Size as string,",
-						"          Weight as decimal(8,2),",
-						"          ProductCategoryID as integer,",
-						"          ProductModelID as integer,",
-						"          SellStartDate as timestamp,",
-						"          SellEndDate as timestamp,",
-						"          DiscontinuedDate as timestamp,",
-						"          ThumbNailPhoto as binary,",
-						"          ThumbnailPhotoFileName as string,",
-						"          rowguid as string,",
-						"          ModifiedDate as timestamp",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> ProductStream",
-						"ProductStream derive(Markup = ListPrice / StandardCost) ~> CalculatedMarkup",
-						"CalculatedMarkup sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     mapColumn(",
-						"          ProductID,",
-						"          Name,",
-						"          ProductNumber,",
-						"          Color,",
-						"          StandardCost,",
-						"          ListPrice,",
-						"          Size,",
-						"          Weight,",
-						"          ProductCategoryID,",
-						"          ProductModelID,",
-						"          SellStartDate,",
-						"          SellEndDate,",
-						"          DiscontinuedDate,",
-						"          ModifiedDate,",
-						"          Markup",
-						"     )) ~> SinkBlob"
-					]
+					"schema": "dbo",
+					"table": "TripData"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ProductsTable')]",
-				"[concat(variables('factoryId'), '/datasets/ProductBlobJson')]"
+				"[concat(variables('factoryId'), '/linkedServices/sourcelink')]"
 			]
 		},
 		{
@@ -600,6 +722,189 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/dfProductsMarkup')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ProductsTable",
+								"type": "DatasetReference"
+							},
+							"name": "ProductStream"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ProductBlobJson",
+								"type": "DatasetReference"
+							},
+							"name": "SinkBlob"
+						}
+					],
+					"transformations": [
+						{
+							"name": "CalculatedMarkup"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          ProductID as integer,",
+						"          Name as string,",
+						"          ProductNumber as string,",
+						"          Color as string,",
+						"          StandardCost as decimal(19,4),",
+						"          ListPrice as decimal(19,4),",
+						"          Size as string,",
+						"          Weight as decimal(8,2),",
+						"          ProductCategoryID as integer,",
+						"          ProductModelID as integer,",
+						"          SellStartDate as timestamp,",
+						"          SellEndDate as timestamp,",
+						"          DiscontinuedDate as timestamp,",
+						"          ThumbNailPhoto as binary,",
+						"          ThumbnailPhotoFileName as string,",
+						"          rowguid as string,",
+						"          ModifiedDate as timestamp",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> ProductStream",
+						"ProductStream derive(Markup = ListPrice / StandardCost) ~> CalculatedMarkup",
+						"CalculatedMarkup sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     mapColumn(",
+						"          ProductID,",
+						"          Name,",
+						"          ProductNumber,",
+						"          Color,",
+						"          StandardCost,",
+						"          ListPrice,",
+						"          Size,",
+						"          Weight,",
+						"          ProductCategoryID,",
+						"          ProductModelID,",
+						"          SellStartDate,",
+						"          SellEndDate,",
+						"          DiscontinuedDate,",
+						"          ModifiedDate,",
+						"          Markup",
+						"     )) ~> SinkBlob"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ProductsTable')]",
+				"[concat(variables('factoryId'), '/datasets/ProductBlobJson')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/6 Taxi Trip PL')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "CopyTripData",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "TripDatacsv",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Data flow1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "CopyTripData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]",
+				"[concat(variables('factoryId'), '/datasets/TripDatacsv')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ProductsMarkupPL')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -671,8 +976,7 @@
 								"datasetParameters": {
 									"MoviesDB": {},
 									"Sink": {}
-								},
-								"linkedServiceParameters": {}
+								}
 							},
 							"staging": {},
 							"compute": {

@@ -5,14 +5,26 @@
 		"factoryName": {
 			"value": "manda-diff"
 		},
+		"ADLSGen2_accountKey": {
+			"value": ""
+		},
 		"AdvWorksDb_password": {
 			"value": ""
 		},
 		"BlobStorageProducts_connectionString": {
 			"value": ""
 		},
-		"ADLSGen2_accountKey": {
+		"TaxiTripDB_password": {
 			"value": ""
+		},
+		"ADLSTripData_accountKey": {
+			"value": ""
+		},
+		"sourcelink_password": {
+			"value": ""
+		},
+		"ADLSGen2_properties_typeProperties_url": {
+			"value": "https://adf8414.dfs.core.windows.net/"
 		},
 		"AdvWorksDb_properties_typeProperties_server": {
 			"value": "manda-diff.database.windows.net"
@@ -23,8 +35,26 @@
 		"AdvWorksDb_properties_typeProperties_userName": {
 			"value": "manda-admin"
 		},
-		"ADLSGen2_properties_typeProperties_url": {
-			"value": "https://adf8414.dfs.core.windows.net/"
+		"TaxiTripDB_properties_typeProperties_server": {
+			"value": "manda-diff.database.windows.net"
+		},
+		"TaxiTripDB_properties_typeProperties_database": {
+			"value": "tripdataDB"
+		},
+		"TaxiTripDB_properties_typeProperties_userName": {
+			"value": "manda-admin"
+		},
+		"ADLSTripData_properties_typeProperties_url": {
+			"value": "https://adlstripdata8414.dfs.core.windows.net/"
+		},
+		"sourcelink_properties_typeProperties_server": {
+			"value": "manda-diff.database.windows.net"
+		},
+		"sourcelink_properties_typeProperties_database": {
+			"value": "tripdataDB"
+		},
+		"sourcelink_properties_typeProperties_userName": {
+			"value": "manda-admin"
 		},
 		"containerUri": {
 			"value": ""
