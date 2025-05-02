@@ -1,0 +1,12 @@
+{
+	"name": "SinkFlipkartLinkService",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=adf8414;EndpointSuffix=core.windows.net;",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEUzODkzQjQ3LUYyRDEtNEU4OS05QTdGLUFBOTE1MzMwMjU1MF80MjhiZTZjZi05MTkyLTQ1Y2UtOGM0MS01YWFmMmI0OTBmNmQiDQp9"
+		}
+	}
+}
