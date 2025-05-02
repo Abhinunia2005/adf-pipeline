@@ -57,14 +57,9 @@
 			{
 				"name": "Data Flow 1",
 				"type": "ExecuteDataFlow",
-				"dependsOn": [
-					{
-						"activity": "CopyTripData",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
