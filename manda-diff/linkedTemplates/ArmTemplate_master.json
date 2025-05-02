@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ADLSGen2'"
 		},
+		"ADLSTripData_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLSTripData'"
+		},
 		"AdvWorksDb_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AdvWorksDb'"
@@ -23,9 +27,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'TaxiTripDB'"
 		},
-		"ADLSTripData_accountKey": {
+		"TripAggregateBlob_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'ADLSTripData'"
+			"metadata": "Secure string for 'connectionString' of 'TripAggregateBlob'"
 		},
 		"sourcelink_password": {
 			"type": "secureString",
@@ -34,6 +38,10 @@
 		"ADLSGen2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adf8414.dfs.core.windows.net/"
+		},
+		"ADLSTripData_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlstripdata8414.dfs.core.windows.net/"
 		},
 		"AdvWorksDb_properties_typeProperties_server": {
 			"type": "string",
@@ -58,10 +66,6 @@
 		"TaxiTripDB_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "manda-admin"
-		},
-		"ADLSTripData_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlstripdata8414.dfs.core.windows.net/"
 		},
 		"sourcelink_properties_typeProperties_server": {
 			"type": "string",
@@ -105,6 +109,9 @@
 					"ADLSGen2_accountKey": {
 						"value": "[parameters('ADLSGen2_accountKey')]"
 					},
+					"ADLSTripData_accountKey": {
+						"value": "[parameters('ADLSTripData_accountKey')]"
+					},
 					"AdvWorksDb_password": {
 						"value": "[parameters('AdvWorksDb_password')]"
 					},
@@ -114,14 +121,17 @@
 					"TaxiTripDB_password": {
 						"value": "[parameters('TaxiTripDB_password')]"
 					},
-					"ADLSTripData_accountKey": {
-						"value": "[parameters('ADLSTripData_accountKey')]"
+					"TripAggregateBlob_connectionString": {
+						"value": "[parameters('TripAggregateBlob_connectionString')]"
 					},
 					"sourcelink_password": {
 						"value": "[parameters('sourcelink_password')]"
 					},
 					"ADLSGen2_properties_typeProperties_url": {
 						"value": "[parameters('ADLSGen2_properties_typeProperties_url')]"
+					},
+					"ADLSTripData_properties_typeProperties_url": {
+						"value": "[parameters('ADLSTripData_properties_typeProperties_url')]"
 					},
 					"AdvWorksDb_properties_typeProperties_server": {
 						"value": "[parameters('AdvWorksDb_properties_typeProperties_server')]"
@@ -141,9 +151,6 @@
 					"TaxiTripDB_properties_typeProperties_userName": {
 						"value": "[parameters('TaxiTripDB_properties_typeProperties_userName')]"
 					},
-					"ADLSTripData_properties_typeProperties_url": {
-						"value": "[parameters('ADLSTripData_properties_typeProperties_url')]"
-					},
 					"sourcelink_properties_typeProperties_server": {
 						"value": "[parameters('sourcelink_properties_typeProperties_server')]"
 					},
@@ -156,6 +163,26 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "manda-diff_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'manda-diff_ArmTemplate_0')]"
+			]
 		}
 	]
 }
