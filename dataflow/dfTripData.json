@@ -19,10 +19,21 @@
 					"name": "TripDataFares"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "TripAggregateCsv",
+						"type": "DatasetReference"
+					},
+					"name": "TripAggregateSink"
+				}
+			],
 			"transformations": [
 				{
 					"name": "join1"
+				},
+				{
+					"name": "AggregateByPayType"
 				}
 			],
 			"scriptLines": [
@@ -63,11 +74,21 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> TripDataFares",
-				"TripDataCsv, TripDataFares join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"TripDataCsv, TripDataFares join(TripDataCsv@medallion == TripDataFares@medallion",
+				"     && TripDataCsv@hack_license == TripDataFares@hack_license",
+				"     && TripDataCsv@vendor_id == TripDataFares@vendor_id",
+				"     && TripDataCsv@pickup_datetime == TripDataFares@pickup_datetime,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join1"
+				"     broadcast: 'auto')~> join1",
+				"join1 aggregate(groupBy(payment_type),",
+				"     Average_Fare = avg(toInteger(total_amount)),",
+				"          Total_trp_distance = sum(toInteger(trip_distance))) ~> AggregateByPayType",
+				"AggregateByPayType sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> TripAggregateSink"
 			]
 		}
 	}
