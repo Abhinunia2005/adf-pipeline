@@ -43,6 +43,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'sourcelink'"
 		},
+		"AzureBlobStorage2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
+		},
+		"SinkFlipkartLinkService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SinkFlipkartLinkService'"
+		},
 		"ADLSGen2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adf8414.dfs.core.windows.net/"
@@ -152,6 +160,12 @@
 					},
 					"sourcelink_password": {
 						"value": "[parameters('sourcelink_password')]"
+					},
+					"AzureBlobStorage2_connectionString": {
+						"value": "[parameters('AzureBlobStorage2_connectionString')]"
+					},
+					"SinkFlipkartLinkService_connectionString": {
+						"value": "[parameters('SinkFlipkartLinkService_connectionString')]"
 					},
 					"ADLSGen2_properties_typeProperties_url": {
 						"value": "[parameters('ADLSGen2_properties_typeProperties_url')]"

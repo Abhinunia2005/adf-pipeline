@@ -32,6 +32,12 @@
 		"sourcelink_password": {
 			"value": ""
 		},
+		"AzureBlobStorage2_connectionString": {
+			"value": ""
+		},
+		"SinkFlipkartLinkService_connectionString": {
+			"value": ""
+		},
 		"ADLSGen2_properties_typeProperties_url": {
 			"value": "https://adf8414.dfs.core.windows.net/"
 		},
