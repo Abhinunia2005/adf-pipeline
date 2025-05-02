@@ -1,0 +1,17 @@
+{
+	"name": "TaxiTripDB",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "manda-diff.database.windows.net",
+			"database": "tripdataDB",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "manda-admin",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEUzODkzQjQ3LUYyRDEtNEU4OS05QTdGLUFBOTE1MzMwMjU1MF83M2RmYTQ3Mi1mOGE0LTRlM2MtODhlMC0wYjY5YTkwZTM4ZGMiDQp9"
+		}
+	}
+}
