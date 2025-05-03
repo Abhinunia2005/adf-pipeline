@@ -17,10 +17,16 @@
 		"AzureBlobStorage1_connectionString": {
 			"value": ""
 		},
+		"AzureBlobStorage2_connectionString": {
+			"value": ""
+		},
 		"AzureSqlDatabase1_password": {
 			"value": ""
 		},
 		"BlobStorageProducts_connectionString": {
+			"value": ""
+		},
+		"SinkFlipkartLinkService_connectionString": {
 			"value": ""
 		},
 		"TaxiTripDB_password": {
@@ -32,10 +38,10 @@
 		"sourcelink_password": {
 			"value": ""
 		},
-		"AzureBlobStorage2_connectionString": {
+		"demoLinkedService_connectionString": {
 			"value": ""
 		},
-		"SinkFlipkartLinkService_connectionString": {
+		"SinkDemoLinkedService_connectionString": {
 			"value": ""
 		},
 		"ADLSGen2_properties_typeProperties_url": {

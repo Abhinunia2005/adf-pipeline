@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
 		},
+		"AzureBlobStorage2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
+		},
 		"AzureSqlDatabase1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
@@ -30,6 +34,10 @@
 		"BlobStorageProducts_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'BlobStorageProducts'"
+		},
+		"SinkFlipkartLinkService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SinkFlipkartLinkService'"
 		},
 		"TaxiTripDB_password": {
 			"type": "secureString",
@@ -43,13 +51,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'sourcelink'"
 		},
-		"AzureBlobStorage2_connectionString": {
+		"demoLinkedService_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
+			"metadata": "Secure string for 'connectionString' of 'demoLinkedService'"
 		},
-		"SinkFlipkartLinkService_connectionString": {
+		"SinkDemoLinkedService_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SinkFlipkartLinkService'"
+			"metadata": "Secure string for 'connectionString' of 'SinkDemoLinkedService'"
 		},
 		"ADLSGen2_properties_typeProperties_url": {
 			"type": "string",
@@ -146,11 +154,17 @@
 					"AzureBlobStorage1_connectionString": {
 						"value": "[parameters('AzureBlobStorage1_connectionString')]"
 					},
+					"AzureBlobStorage2_connectionString": {
+						"value": "[parameters('AzureBlobStorage2_connectionString')]"
+					},
 					"AzureSqlDatabase1_password": {
 						"value": "[parameters('AzureSqlDatabase1_password')]"
 					},
 					"BlobStorageProducts_connectionString": {
 						"value": "[parameters('BlobStorageProducts_connectionString')]"
+					},
+					"SinkFlipkartLinkService_connectionString": {
+						"value": "[parameters('SinkFlipkartLinkService_connectionString')]"
 					},
 					"TaxiTripDB_password": {
 						"value": "[parameters('TaxiTripDB_password')]"
@@ -161,11 +175,11 @@
 					"sourcelink_password": {
 						"value": "[parameters('sourcelink_password')]"
 					},
-					"AzureBlobStorage2_connectionString": {
-						"value": "[parameters('AzureBlobStorage2_connectionString')]"
+					"demoLinkedService_connectionString": {
+						"value": "[parameters('demoLinkedService_connectionString')]"
 					},
-					"SinkFlipkartLinkService_connectionString": {
-						"value": "[parameters('SinkFlipkartLinkService_connectionString')]"
+					"SinkDemoLinkedService_connectionString": {
+						"value": "[parameters('SinkDemoLinkedService_connectionString')]"
 					},
 					"ADLSGen2_properties_typeProperties_url": {
 						"value": "[parameters('ADLSGen2_properties_typeProperties_url')]"
