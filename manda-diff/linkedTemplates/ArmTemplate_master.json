@@ -35,6 +35,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'BlobStorageProducts'"
 		},
+		"SinkDemoLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SinkDemoLinkedService'"
+		},
 		"SinkFlipkartLinkService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SinkFlipkartLinkService'"
@@ -47,17 +51,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'TripAggregateBlob'"
 		},
-		"sourcelink_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'sourcelink'"
-		},
 		"demoLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'demoLinkedService'"
 		},
-		"SinkDemoLinkedService_connectionString": {
+		"sourcelink_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SinkDemoLinkedService'"
+			"metadata": "Secure string for 'password' of 'sourcelink'"
+		},
+		"SourceDemoLink_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SourceDemoLink'"
+		},
+		"SinkDemoLinkedSerice_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SinkDemoLinkedSerice'"
 		},
 		"ADLSGen2_properties_typeProperties_url": {
 			"type": "string",
@@ -163,6 +171,9 @@
 					"BlobStorageProducts_connectionString": {
 						"value": "[parameters('BlobStorageProducts_connectionString')]"
 					},
+					"SinkDemoLinkedService_connectionString": {
+						"value": "[parameters('SinkDemoLinkedService_connectionString')]"
+					},
 					"SinkFlipkartLinkService_connectionString": {
 						"value": "[parameters('SinkFlipkartLinkService_connectionString')]"
 					},
@@ -172,14 +183,17 @@
 					"TripAggregateBlob_connectionString": {
 						"value": "[parameters('TripAggregateBlob_connectionString')]"
 					},
-					"sourcelink_password": {
-						"value": "[parameters('sourcelink_password')]"
-					},
 					"demoLinkedService_connectionString": {
 						"value": "[parameters('demoLinkedService_connectionString')]"
 					},
-					"SinkDemoLinkedService_connectionString": {
-						"value": "[parameters('SinkDemoLinkedService_connectionString')]"
+					"sourcelink_password": {
+						"value": "[parameters('sourcelink_password')]"
+					},
+					"SourceDemoLink_connectionString": {
+						"value": "[parameters('SourceDemoLink_connectionString')]"
+					},
+					"SinkDemoLinkedSerice_connectionString": {
+						"value": "[parameters('SinkDemoLinkedSerice_connectionString')]"
 					},
 					"ADLSGen2_properties_typeProperties_url": {
 						"value": "[parameters('ADLSGen2_properties_typeProperties_url')]"
@@ -245,6 +259,26 @@
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'manda-diff_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "manda-diff_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'manda-diff_ArmTemplate_1')]"
 			]
 		}
 	]

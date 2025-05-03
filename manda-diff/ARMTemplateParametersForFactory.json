@@ -26,6 +26,9 @@
 		"BlobStorageProducts_connectionString": {
 			"value": ""
 		},
+		"SinkDemoLinkedService_connectionString": {
+			"value": ""
+		},
 		"SinkFlipkartLinkService_connectionString": {
 			"value": ""
 		},
@@ -35,13 +38,16 @@
 		"TripAggregateBlob_connectionString": {
 			"value": ""
 		},
-		"sourcelink_password": {
-			"value": ""
-		},
 		"demoLinkedService_connectionString": {
 			"value": ""
 		},
-		"SinkDemoLinkedService_connectionString": {
+		"sourcelink_password": {
+			"value": ""
+		},
+		"SourceDemoLink_connectionString": {
+			"value": ""
+		},
+		"SinkDemoLinkedSerice_connectionString": {
 			"value": ""
 		},
 		"ADLSGen2_properties_typeProperties_url": {
