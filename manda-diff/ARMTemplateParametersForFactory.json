@@ -26,10 +26,16 @@
 		"BlobStorageProducts_connectionString": {
 			"value": ""
 		},
+		"SinkDemoLinkedSerice_connectionString": {
+			"value": ""
+		},
 		"SinkDemoLinkedService_connectionString": {
 			"value": ""
 		},
 		"SinkFlipkartLinkService_connectionString": {
+			"value": ""
+		},
+		"SourceDemoLink_connectionString": {
 			"value": ""
 		},
 		"TaxiTripDB_password": {
@@ -42,12 +48,6 @@
 			"value": ""
 		},
 		"sourcelink_password": {
-			"value": ""
-		},
-		"SourceDemoLink_connectionString": {
-			"value": ""
-		},
-		"SinkDemoLinkedSerice_connectionString": {
 			"value": ""
 		},
 		"ADLSGen2_properties_typeProperties_url": {

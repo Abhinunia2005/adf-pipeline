@@ -35,6 +35,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'BlobStorageProducts'"
 		},
+		"SinkDemoLinkedSerice_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SinkDemoLinkedSerice'"
+		},
 		"SinkDemoLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SinkDemoLinkedService'"
@@ -42,6 +46,10 @@
 		"SinkFlipkartLinkService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SinkFlipkartLinkService'"
+		},
+		"SourceDemoLink_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SourceDemoLink'"
 		},
 		"TaxiTripDB_password": {
 			"type": "secureString",
@@ -58,14 +66,6 @@
 		"sourcelink_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'sourcelink'"
-		},
-		"SourceDemoLink_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SourceDemoLink'"
-		},
-		"SinkDemoLinkedSerice_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SinkDemoLinkedSerice'"
 		},
 		"ADLSGen2_properties_typeProperties_url": {
 			"type": "string",
@@ -171,11 +171,17 @@
 					"BlobStorageProducts_connectionString": {
 						"value": "[parameters('BlobStorageProducts_connectionString')]"
 					},
+					"SinkDemoLinkedSerice_connectionString": {
+						"value": "[parameters('SinkDemoLinkedSerice_connectionString')]"
+					},
 					"SinkDemoLinkedService_connectionString": {
 						"value": "[parameters('SinkDemoLinkedService_connectionString')]"
 					},
 					"SinkFlipkartLinkService_connectionString": {
 						"value": "[parameters('SinkFlipkartLinkService_connectionString')]"
+					},
+					"SourceDemoLink_connectionString": {
+						"value": "[parameters('SourceDemoLink_connectionString')]"
 					},
 					"TaxiTripDB_password": {
 						"value": "[parameters('TaxiTripDB_password')]"
@@ -188,12 +194,6 @@
 					},
 					"sourcelink_password": {
 						"value": "[parameters('sourcelink_password')]"
-					},
-					"SourceDemoLink_connectionString": {
-						"value": "[parameters('SourceDemoLink_connectionString')]"
-					},
-					"SinkDemoLinkedSerice_connectionString": {
-						"value": "[parameters('SinkDemoLinkedSerice_connectionString')]"
 					},
 					"ADLSGen2_properties_typeProperties_url": {
 						"value": "[parameters('ADLSGen2_properties_typeProperties_url')]"
